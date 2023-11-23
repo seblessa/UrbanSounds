@@ -73,10 +73,15 @@ def process_data(base_dir):
     return df
 
 
-base_dir = 'C:/tmp/sound_datasets/urbansound8k/audio/'
-urbansounds_df = process_data(base_dir)
+def main():
+    base_dir = "./UrbanSound8K/audio/"
+    urbansounds_df = process_data(base_dir)
 
-# Display the DataFrame
-print(urbansounds_df.head())
+    # Display the DataFrame
+    print(urbansounds_df.head())
 
-urbansounds_df.to_csv('urbansounds_features.csv', index=False)
+    urbansounds_df.to_csv('urbansounds_features.csv', index=False)
+
+
+if __name__ == '__main__':
+    main()
