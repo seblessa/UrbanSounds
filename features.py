@@ -5,8 +5,16 @@ import numpy as np
 import pandas as pd
 
 
-def extract_features(audio_file):
-    y, sr = librosa.load(audio_file)
+def extract_features(audio_file, target_duration=4, target_sr=44100):
+    y, sr = librosa.load(audio_file, sr=target_sr)
+
+    # Ensure audio is target duration
+    target_length = int(target_sr * target_duration)
+    y = librosa.util.fix_length(y, size=target_length)
+
+    # Normalize amplitude
+    y = librosa.util.normalize(y)
+
 
     hop_length = 512
     oenv = librosa.onset.onset_strength(y=y, sr=sr, hop_length=hop_length)
@@ -74,7 +82,7 @@ def process_data(base_dir):
 
 
 def main():
-    base_dir = "./UrbanSound8K/audio/"
+    base_dir = "C:/tmp/sound_datasets/urbansound8k/audio"
     urbansounds_df = process_data(base_dir)
 
     # Display the DataFrame
