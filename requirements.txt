@@ -3,3 +3,5 @@ numpy
 librosa
 Scipy
 pandas
+scikit-learn
+imblearn
