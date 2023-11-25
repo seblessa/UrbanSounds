@@ -15,7 +15,6 @@ def extract_features(audio_file, target_duration=4, target_sr=44100):
     # Normalize amplitude
     y = librosa.util.normalize(y)
 
-
     hop_length = 512
     oenv = librosa.onset.onset_strength(y=y, sr=sr, hop_length=hop_length)
 
@@ -51,8 +50,8 @@ def extract_features(audio_file, target_duration=4, target_sr=44100):
         'rolloff': np.mean(rolloff),
         # 'tonnetz' : np.mean(tonnetz),
         'crossing_rate': np.mean(crossing_rate),
-        'tempogram': tempogram,
-        'fourier_tempogram': fourier_tempogram
+        'tempogram': np.mean(tempogram),
+        'fourier_tempogram': np.mean(fourier_tempogram)
     }
 
     for i in range(1, 41):
