@@ -40,7 +40,6 @@ def extract_features(audio_file, target_duration=4, target_sr=44100):
         'chroma_stft': np.mean(chroma_stft),
         'chroma_cqt': np.mean(chroma_cqt),
         'chroma_cens': np.mean(chroma_cens),
-        # 'chroma_vqt' : np.mean(chroma_vqt),
         'melspectogram': np.mean(melspectogram),
         'rms': np.mean(rms),
         'centroid': np.mean(centroid),
@@ -48,7 +47,6 @@ def extract_features(audio_file, target_duration=4, target_sr=44100):
         'contrast': np.mean(contrast),
         'flatness': np.mean(flatness),
         'rolloff': np.mean(rolloff),
-        # 'tonnetz' : np.mean(tonnetz),
         'crossing_rate': np.mean(crossing_rate),
         'tempogram': np.mean(tempogram),
         'fourier_tempogram': np.mean(fourier_tempogram)
@@ -59,12 +57,12 @@ def extract_features(audio_file, target_duration=4, target_sr=44100):
     return features
 
 
-label_list = []
-features_list = []
 
 
 def process_data(base_dir):
     for folder in os.listdir(base_dir):
+        label_list = []
+        features_list = []
         fold_dir = os.path.join(base_dir, folder)
         if os.path.isdir(fold_dir):
             for filename in os.listdir(fold_dir):
@@ -75,19 +73,16 @@ def process_data(base_dir):
                     features_list.append(features)
                     label_list.append(label)
 
-    df = pd.DataFrame(features_list)
-    df['Label'] = label_list
-    return df
+        df = pd.DataFrame(features_list)
+        df['Label'] = label_list
+        df.to_csv('urbansounds_features'+folder+'.csv', index=False)
+        # Display the DataFrame
+        print(df.head())
 
 
 def main():
     base_dir = "C:/tmp/sound_datasets/urbansound8k/audio"
-    urbansounds_df = process_data(base_dir)
-
-    # Display the DataFrame
-    print(urbansounds_df.head())
-
-    urbansounds_df.to_csv('urbansounds_features.csv', index=False)
+    process_data(base_dir)
 
 
 if __name__ == '__main__':
