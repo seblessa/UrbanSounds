@@ -57,8 +57,6 @@ def extract_features(audio_file, target_duration=4, target_sr=44100):
     return features
 
 
-
-
 def process_data(base_dir):
     for folder in os.listdir(base_dir):
         label_list = []
@@ -75,7 +73,7 @@ def process_data(base_dir):
 
         df = pd.DataFrame(features_list)
         df['Label'] = label_list
-        df.to_csv('urbansounds_features'+folder+'.csv', index=False)
+        df.to_csv('urbansounds_features' + folder + '.csv', index=False)
         # Display the DataFrame
         print(df.head())
 
